@@ -1,0 +1,21 @@
+{
+    "name": "motion-assignment",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha build/**/*.test.js",
+        "start": "NODE_ENV=development node build/index.js",
+        "watch": "NODE_ENV=development tsc -w"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@types/mocha": "10.0.6",
+        "@types/node": "20.11.24",
+        "dotenv": "16.4.5",
+        "mocha": "10.3.0",
+        "typescript": "5.3.3"
+    }
+}

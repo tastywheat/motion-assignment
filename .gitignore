@@ -1,0 +1,7 @@
+*.swp
+*.log
+*.env
+build
+log
+logs
+node_modules
