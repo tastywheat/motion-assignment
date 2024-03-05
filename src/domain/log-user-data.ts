@@ -20,9 +20,13 @@ export const makeLogUserData = ({ minDelay, maxDelay, fetchUserInfo }: MakeLogUs
             const data = await fetchUserInfo(fields);
 
             if ('error' in data) {
+                // when we encounter an error, use an exponential backoff strategy 
+                // so we don't continuously spam requests to the API
                 delay = extendDelay(delay, maxDelay);
                 logFbError(data);
             } else if ('id' in data) {
+                // when we have a successful response, reset the delay incase
+                // it was extended due to rate limiting and process at normal rates
                 delay = minDelay;
                 logFbData(data);
             } 
