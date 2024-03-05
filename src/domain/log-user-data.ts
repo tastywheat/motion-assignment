@@ -1,7 +1,7 @@
 import type { FacebookError, FetchUserInfoFunc, FacebookUser } from '../data/fetch-user-info';
 import { FBErrorCodes } from '../data/fetch-user-info';
 import { AbortError } from 'node-fetch';
-import logger from '../logger';
+import logger from '../utils/logger';
 
 type MakeLogUserDataArgs = {
     minDelay: number

@@ -1,5 +1,5 @@
 import configs from './configs';
-import logger from './logger';
+import logger from './utils/logger';
 import { makeLogUserData } from './domain/log-user-data';
 import { fetchUserInfo } from './data/fetch-user-info';
 
