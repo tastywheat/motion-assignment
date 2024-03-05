@@ -37,7 +37,7 @@ export const makeLogUserData = ({ minDelay, maxDelay, fetchUserInfo }: MakeLogUs
                 logger.error(`Fetch timed out: ${err.message}`);
             } else if (err instanceof Error) {
                 // we don't know how to handle this error so we'll let the application crash.
-                // log the result so it can be reviewed later.
+                // the error will be caught and logged from the top level handler.
                 throw new Error(`Failed to fetch user info, encountered unknown error: ${JSON.stringify(err)}`);
             }
         }
