@@ -11,7 +11,7 @@ npm install
 ## Configuration
 - Add your Facebook API key
     - Create a `.env` file (or make a copy of the `.env.example` file in the root directory)
-    - Add your key to the key `FB_KEY`, e.g. `FB_KEY=MY_FB_API_KEY`
+    - Set your FB API key as `FB_KEY=MY_FB_API_KEY`
 
 ## Run
 ```
