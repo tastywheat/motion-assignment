@@ -1,25 +1,39 @@
-import fetch from 'node-fetch';
-
 import configs from './configs';
-import log from './logger';
+import logger from './logger';
+import { makeLogUserData } from './domain/log-user-data';
+import { fetchUserInfo } from './data/fetch-user-info';
 
-const FB_URL = `https://graph.facebook.com/v19.0/me?access_token=${configs.fbKey}`;
+
+const logUserData = makeLogUserData({
+    minDelay: configs.minDelay, 
+    maxDelay: configs.maxDelay, 
+    fetchUserInfo,
+});
 
 async function app() {
-    log('Starting');
+    logger.info('Starting');
 
-    const data = await fetchUserInfo();
-    console.log('data', data);
+    let delay = configs.minDelay;
+    while(true) {
+        await sleep(delay);
+        delay = await logUserData({
+            fields: ['id', 'name'],
+            delay,
+        });
+    }
 }
 
-async function fetchUserInfo() {
-    const params = new URLSearchParams({
-        fields: `id,name`,
-    });
-
-    const res = await fetch(`${FB_URL}&${params}`);
-
-    return res.json();
+function sleep(delay: number) {
+    return new Promise((resolve) => setTimeout(resolve, delay));
 }
 
-app();
+process.on('unhandledRejection', (reason, promise) => {
+    logger.error(`Unhandled Rejection at: ${promise} reason: ${reason}`);
+})
+
+process.on('uncaughtException', (err: Error) => {
+    logger.error(`Uncaught Exception thrown: ${err?.stack}`);
+    process.exit(1);
+});
+
+export default app;

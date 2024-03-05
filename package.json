@@ -4,9 +4,11 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "mocha build/**/*.test.js",
+        "test": "NODE_ENV=test mocha build/**/*.test.js",
         "start": "NODE_ENV=development node build/index.js",
-        "watch": "NODE_ENV=development tsc -w"
+        "watch": "NODE_ENV=development tsc -w",
+        "clean": "rimraf build",
+        "build": "NODE_ENV=development tsc"
     },
     "keywords": [],
     "author": "",
@@ -14,10 +16,12 @@
     "dependencies": {
         "@types/mocha": "10.0.6",
         "@types/node": "20.11.24",
-        "@types/node-fetch": "^2.6.11",
+        "@types/node-fetch": "2.6.11",
         "dotenv": "16.4.5",
         "mocha": "10.3.0",
         "node-fetch": "2.7.0",
-        "typescript": "5.3.3"
+        "rimraf": "5.0.5",
+        "typescript": "5.3.3",
+        "zod": "3.22.4"
     }
 }
