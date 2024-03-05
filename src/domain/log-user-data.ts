@@ -32,7 +32,9 @@ export const makeLogUserData = ({ minDelay, maxDelay, fetchUserInfo }: MakeLogUs
             if (err instanceof AbortError) {
                 logger.error(`Fetch timed out: ${err.message}`);
             } else if (err instanceof Error) {
-                throw new Error(`Failed to fetch user info, encountered unknown error: ${err.message}`);
+                // we don't know how to handle this error so we'll let the application crash.
+                // log the result so it can be reviewed later.
+                throw new Error(`Failed to fetch user info, encountered unknown error: ${JSON.stringify(err)}`);
             }
         }
 

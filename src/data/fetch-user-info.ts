@@ -40,12 +40,12 @@ const facebookErrorSchema = z.object({
 
 const userOrErrorSchema = z.union([facebookUserSchema, facebookErrorSchema]);
 
-export type FetchUserInfoFunc = <T extends keyof FacebookUser>(fields: T[]) => Promise<FetchUserResponse>;
+export type FetchUserInfoFunc = typeof fetchUserInfo;
 export type FetchUserResponse = z.infer<typeof userOrErrorSchema>;
 export type FacebookUser = z.infer<typeof facebookUserSchema>;
 export type FacebookError = z.infer<typeof facebookErrorSchema>;
 
-export const fetchUserInfo: FetchUserInfoFunc = async <T extends keyof FacebookUser>(fields: T[]): Promise<FetchUserResponse> => {
+export async function fetchUserInfo<T extends keyof FacebookUser>(fields: T[]): Promise<FetchUserResponse> {
     // if the request hangs on FB's end, we'll abort the request
     const controller = new AbortController();
     const timeout = setTimeout(() => {
@@ -68,6 +68,8 @@ export const fetchUserInfo: FetchUserInfoFunc = async <T extends keyof FacebookU
     const result = userOrErrorSchema.safeParse(output);
 
     if (result.success === false) {
+        // when we receive unknown data, we should let the application crash
+        // because we don't have a way to recover
         throw new Error(
             `Facebook returned unexpected schema. Received: ${JSON.stringify(output)}`
         );
