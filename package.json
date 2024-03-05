@@ -7,8 +7,7 @@
         "test": "NODE_ENV=test mocha build/**/*.test.js",
         "start": "NODE_ENV=development node build/index.js",
         "watch": "NODE_ENV=development tsc -w",
-        "clean": "rimraf build",
-        "build": "NODE_ENV=development tsc"
+        "build": "rimraf build && NODE_ENV=development tsc"
     },
     "keywords": [],
     "author": "",
