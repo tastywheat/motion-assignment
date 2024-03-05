@@ -50,7 +50,7 @@ export async function fetchUserInfo<T extends keyof FacebookUser>(fields: T[]): 
     const controller = new AbortController();
     const timeout = setTimeout(() => {
         controller.abort();
-    }, 1000);
+    }, configs.fbRequestTimeout);
 
     const params = new URLSearchParams({
         fields: fields.join(','),

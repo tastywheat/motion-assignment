@@ -5,7 +5,8 @@ if (!fbKey) throw new Error('environment variable FB_KEY is required');
 
 const config: Config = {
     fbKey,
-    minDelay: 2000,
+    fbRequestTimeout: 1000,
+    minDelay: 200,
     maxDelay: 60000,
 }
 
